@@ -11,7 +11,7 @@ GLfloat planeLowerLimit = 0.62f;
 
 
 GLfloat planePosition = 0.05f;
-GLfloat planeSpeed = 0.005f;
+GLfloat planeSpeed = 0.004f;
 
 GLfloat cloudPosition1 = -0.75f;
 GLfloat cloudPosition2 = -0.35f;
@@ -75,7 +75,7 @@ void SpecialInput(int key, int x, int y)
 
             planeY += 0.05f;
 
-            // Upper limit
+
             if(planeY > planeUpperLimit)
                 planeY = planeUpperLimit;
 
@@ -807,6 +807,40 @@ void drawBench(float x, float y) {
 }
 
 
+
+void drawLine(float x2, float y2) {
+    float x1 = -0.018;
+    float y1 = -0.11;
+    glColor3f(0.6f, 0.3f, 0.1f);
+
+    glLineWidth(4.0f);
+
+    glBegin(GL_LINES);
+    glVertex2f(x1, y1);
+    glVertex2f(x2, y2);
+    glEnd();
+}
+void drawSomethingAttractive(float x, float y) {
+
+
+
+    glColor3f(0.75f, 0.75f, 0.75f);
+    drawFilledCircle(-0.011,-0.37, 0.169f, 40);
+
+    glColor3f(0.2f, 0.6f, 1.0f); // blue color
+    drawFilledCircle(-0.011,-0.37, 0.148f, 40);
+
+    drawLine(0.00,-0.54);
+    drawLine(-0.13,-0.49);
+    drawLine(-0.17,-0.39);
+    drawLine(-0.14,-0.26);
+    drawLine(-0.034,-0.20);
+    drawLine(0.11,-0.26);
+    drawLine(0.15,-0.37);
+    drawLine(0.11,-0.48);
+}
+
+
 void display() {
     glClear(GL_COLOR_BUFFER_BIT);
     glLoadIdentity();
@@ -868,9 +902,11 @@ else
     drawAirplane(planePosition, planeY);
 
 
-    // Benches near the path
+
 drawBench(-0.3f, 0.05f);
 drawBench(0.3f, 0.05f);
+
+drawSomethingAttractive(-0.011f, -0.37f);
 
 
     if (rainMode)
