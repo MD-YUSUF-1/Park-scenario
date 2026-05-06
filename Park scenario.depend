@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1778073584 source:d:\graphics course\park scenario\main.cpp
+1778081520 source:d:\graphics course\park scenario\main.cpp
 	<windows.h>
 	<GL/glut.h>
 	<math.h>
