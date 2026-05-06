@@ -25,7 +25,6 @@ void drawEllipse(GLfloat x, GLfloat y, GLfloat radiusX, GLfloat radiusY, int tri
     glEnd();
 }
 
-
 void init() {
     glClearColor(0.53f, 0.81f, 0.92f, 1.0f);
 }
@@ -365,7 +364,7 @@ void drawBridge(){
     glVertex2f(-0.525, -0.090);
     glEnd();
 
-glColor3f(1.0f, 1.0f, 1.0f);
+glColor3f(0.50f, 0.50f, 0.55f);
     glLineWidth(5.0);
     glBegin(GL_LINES);
         glVertex2f(-0.56, -0.14);
@@ -465,7 +464,6 @@ glColor3f(1.0f, 1.0f, 1.0f);
 }
 
 
-
 void drawSwingSet() {
 
     glColor3f(0.44f, 0.27f, 0.10f);
@@ -551,58 +549,48 @@ void drawAirplane(float x, float y) {
     glVertex2f(x - 0.04f, y - 0.074f);
     glEnd();
 
-    // Tail wing
     glBegin(GL_POLYGON);
-    glVertex2f(x - 0.095f, y + 0.027f);
-    glVertex2f(x - 0.065f, y + 0.027f);
-    glVertex2f(x - 0.065f, y + 0.060f);
-    glVertex2f(x - 0.095f, y + 0.060f);
+    glVertex2f(x - 0.09f, y);
+    glVertex2f(x - 0.06f, y);
+    glVertex2f(x - 0.068f, y + 0.067f);
+    glVertex2f(x - 0.09f, y + 0.060f);
     glEnd();
 
     glBegin(GL_POLYGON);
-    glVertex2f(x - 0.084f, y);
-    glVertex2f(x - 0.053f, y);
-    glVertex2f(x - 0.062f, y + 0.067f);
-    glVertex2f(x - 0.084f, y + 0.060f);
+    glVertex2f(x - 0.095f, y + 0.035f);
+    glVertex2f(x - 0.055f, y + 0.038f);
+    glVertex2f(x - 0.055f, y + 0.073f);
+    glVertex2f(x - 0.095f, y + 0.07f);
     glEnd();
 
-//    // Engine
-//    glColor3f(0.50f, 0.50f, 0.55f);
-//    drawFilledCircle(x + 0.011f, y - 0.050f, 0.013f, 40);
-//
-    // Window strip
     glColor3f(0.55f, 0.82f, 0.97f);
     for (int i = 0; i < 5; i++)
-        drawFilledCircle(x - 0.011f + i * 0.022f, y + 0.007f, 0.010f, 30);
+        drawFilledCircle(x - 0.025f + i * 0.022f, y + 0.007f, 0.010f, 30);
 }
+
+
+
 
 
 void display() {
     glClear(GL_COLOR_BUFFER_BIT);
     glLoadIdentity();
 
-
-
     drawSun();
-
 
     drawCloud(-0.75f, 0.82f, 0.055f);
     drawCloud(-0.35f, 0.65f, 0.055f);
     drawCloud(0.70f,0.85f, 0.055f);
 
-
     drawCityBuildings();
 
-
     drawGrass();
-
 
     drawPath();
 
     drawPond();
 
     drawBridge();
-
 
     drawPineTree(-0.55f, 0.03f);
     drawPineTree( -0.10f, -0.02f);
@@ -613,22 +601,11 @@ void display() {
     drawPineTree( 0.70f,0.0f);
     glPopMatrix();
 
-
     drawRoundTree(-0.85f, -0.35f);
-
-
-//    drawFountain();
-//
-//    // 11. Benches
-//    drawBench(-0.15f, -0.42f, 0.10f); // left of fountain
-//    drawBench( 0.35f, -0.42f, 0.10f); // right of fountain
-//    drawBench(-0.52f, -0.72f, 0.09f); // near pond
-//
 
     glTranslatef(0,-0.2f,0);
     drawSwingSet();
     glLoadIdentity();
-
 
     drawAirplane(0.05f, 0.633f);
 
