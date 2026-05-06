@@ -8,10 +8,22 @@
 GLfloat planeX = 1.2f;
 GLfloat planeSpeed = 0.004f;
 
-// Fountain animation
-GLfloat fountainAnim = 0.0f;
 
+void drawEllipse(GLfloat x, GLfloat y, GLfloat radiusX, GLfloat radiusY, int triangleAmount) {
+    glBegin(GL_TRIANGLE_FAN);
+    glVertex2f(x, y);
 
+    GLfloat twicePi = 2.0f * PI;
+
+    for (int i = 0; i <= triangleAmount; i++) {
+        glVertex2f(
+            x + (radiusX * cos(i * twicePi / triangleAmount)),
+            y + (radiusY * sin(i * twicePi / triangleAmount))
+        );
+    }
+
+    glEnd();
+}
 
 
 void init() {
@@ -223,21 +235,21 @@ void drawPath() {
     glVertex2f(-0.64f, -0.03f);
     glVertex2f(-0.55f, -0.04f);
     glVertex2f(-0.57f, -0.089f);
-    glVertex2f(-0.72f, -0.050f);
+    glVertex2f(-0.72f, -0.055f);
     glEnd();
 
     glBegin(GL_QUADS);
      glVertex2f(-0.55f, -0.04f);
     glVertex2f(-0.57f, -0.089f);
-    glVertex2f( 0.33f, -0.1f);
-    glVertex2f(0.33f, -0.052f);
+    glVertex2f( 1.0f, -0.1f);
+    glVertex2f(1.0f, -0.052f);
     glEnd();
 
     glBegin(GL_QUADS);
-    glVertex2f( 0.1f, -0.096f);
+    glVertex2f( 0.1f, -0.05f);
     glVertex2f( 0.1f, -0.2f);
     glVertex2f( -0.1f, -0.20f);
-    glVertex2f( -0.1f, -0.095f);
+    glVertex2f( -0.1f, -0.05f);
     glEnd();
 
     drawFilledCircle(-0.014,-0.38,0.24,30);
@@ -341,46 +353,6 @@ void drawRoundTree(GLfloat x, GLfloat y ) {
 
 }
 
-
-void drawFountain() {
-
-    // Basin outer
-    glColor3f(0.70f, 0.68f, 0.62f);
-    drawFilledCircle(0.10f, -0.52f, 0.17f, 32);
-
-    // Water in basin
-    glColor3f(0.40f, 0.70f, 0.90f);
-    drawFilledCircle(0.10f, -0.52f, 0.13f, 32);
-
-    // Fountain middle pedestal
-    glColor3f(0.70f, 0.68f, 0.62f);
-    glBegin(GL_QUADS);
-    glVertex2f(0.06f, -0.52f);
-    glVertex2f(0.14f, -0.52f);
-    glVertex2f(0.14f, -0.38f);
-    glVertex2f(0.06f, -0.38f);
-    glEnd();
-    // Top bowl
-    drawFilledCircle(0.10f, -0.38f, 0.07f, 24);
-
-    // Animated water jets
-    glColor3f(0.60f, 0.85f, 1.0f);
-    glLineWidth(2.0f);
-    float jh = 0.12f + 0.02f * sin(fountainAnim);
-    // Center jet
-    glBegin(GL_LINES);
-    glVertex2f(0.10f, -0.38f);
-    glVertex2f(0.10f, -0.38f + jh);
-    glEnd();
-    // Side jets
-    float sjh = 0.08f + 0.015f * sin(fountainAnim + 1.0f);
-    glBegin(GL_LINES);
-    glVertex2f(0.10f, -0.40f); glVertex2f(0.10f + 0.06f, -0.40f + sjh);
-    glVertex2f(0.10f, -0.40f); glVertex2f(0.10f - 0.06f, -0.40f + sjh);
-    glVertex2f(0.10f, -0.40f); glVertex2f(0.10f + 0.04f, -0.40f + sjh * 0.9f);
-    glVertex2f(0.10f, -0.40f); glVertex2f(0.10f - 0.04f, -0.40f + sjh * 0.9f);
-    glEnd();
-}
 
 void drawBridge(){
 
@@ -494,8 +466,8 @@ glColor3f(1.0f, 1.0f, 1.0f);
 
 
 
-// ─── SWING SET ────────────────────────────────────────────────────
 void drawSwingSet() {
+
     glColor3f(0.44f, 0.27f, 0.10f);
     glLineWidth(3.5f);
     glBegin(GL_LINES);
@@ -505,6 +477,7 @@ void drawSwingSet() {
     glVertex2f(0.48f,-0.25f);
     glEnd();
 
+
     glTranslatef(+0.35f, 0.0f, 0.0f);
     glLineWidth(3.5f);
     glBegin(GL_LINES);
@@ -513,71 +486,95 @@ void drawSwingSet() {
     glVertex2f(0.44f,-0.008f);
     glVertex2f(0.48f,-0.25f);
     glEnd();
-    glLoadIdentity();
 
+    glTranslatef(-0.35f, 0.0f, 0.0f);
     glLineWidth(3.5f);
     glBegin(GL_LINES);
     glVertex2f(0.44f,-0.008f);
     glVertex2f(0.79f,-0.008f);
     glEnd();
 
-    glVertex2f(0.80f,-0.082f);
-    glVertex2f(0.88f,-0.040f);
-    glVertex2f(0.96f,-0.082f);
-    glVertex2f(0.88f,-0.040f);
-    glVertex2f(0.68f,-0.040f);
-    glVertex2f(0.88f,-0.040f);
-
-
-    glColor3f(0.28f, 0.28f, 0.28f);
-    glLineWidth(1.5f);
-    glBegin(GL_LINES);
-    glVertex2f(0.74f,-0.40f);
-    glVertex2f(0.72f,-0.62f);
-    glVertex2f(0.82f,-0.40f);
-    glVertex2f(0.80f,-0.62f);
-    glEnd();
-
-    glColor3f(0.52f, 0.32f, 0.10f);
-//    drawQuad(0.71f,-0.64f, 0.81f,-0.64f, 0.81f,-0.61f, 0.71f,-0.61f);
-}
-
-// ─── SLIDE ────────────────────────────────────────────────────────
-void drawSlide() {
     glColor3f(0.86f, 0.79f, 0.56f);
     glBegin(GL_QUADS);
-    glVertex2f(0.88f,-0.44f);
-    glVertex2f(0.93f,-0.44f);
-    glVertex2f(0.99f,-0.76f);
-    glVertex2f(0.93f,-0.76f);
+    glVertex2f(0.55f,-0.15f);
+    glVertex2f(0.53f,-0.20f);
+    glVertex2f(0.585f,-0.20f);
+    glVertex2f(0.605f,-0.15f);
     glEnd();
 
-    glColor3f(0.52f, 0.32f, 0.10f);
-    glLineWidth(3.0f);
-    glBegin(GL_LINES);
-    glVertex2f(0.88f,-0.44f); glVertex2f(0.88f,-0.82f);
-    glVertex2f(0.84f,-0.44f); glVertex2f(0.84f,-0.80f);
-    glVertex2f(0.88f,-0.44f); glVertex2f(0.88f,-0.80f);
-    glEnd();
-
+    glColor3f(0.44f, 0.27f, 0.10f);
     glLineWidth(1.5f);
-    for (int i = 0; i < 4; i++) {
-        float ly = -0.50f - i * 0.08f;
-        glBegin(GL_LINES);
-        glVertex2f(0.84f, ly); glVertex2f(0.88f, ly);
-        glEnd();
-    }
-
-    glColor3f(1.0f, 0.78f, 0.0f);
-//    drawQuad(0.88f,-0.89f, 1.00f,-0.89f, 1.00f,-0.86f, 0.88f,-0.86f);
-
-    glColor3f(0.48f, 0.28f, 0.10f);
-    glLineWidth(2.0f);
     glBegin(GL_LINES);
-    glVertex2f(0.94f,-0.86f); glVertex2f(0.94f,-0.92f);
+    glVertex2f(0.54f,-0.008f);
+    glVertex2f(0.54f,-0.18f);
+    glVertex2f(0.59f,-0.008f);
+    glVertex2f(0.59f,-0.18f);
     glEnd();
+
+    glColor3f(0.86f, 0.79f, 0.56f);
+    glBegin(GL_QUADS);
+    glVertex2f(0.66f,-0.15f);
+    glVertex2f(0.64f,-0.20f);
+    glVertex2f(0.695f,-0.20f);
+    glVertex2f(0.715f,-0.15f);
+    glEnd();
+
+    glColor3f(0.44f, 0.27f, 0.10f);
+    glLineWidth(1.5f);
+    glBegin(GL_LINES);
+    glVertex2f(0.65f,-0.008f);
+    glVertex2f(0.65f,-0.18f);
+    glVertex2f(0.70f,-0.008f);
+    glVertex2f(0.70f,-0.18f);
+    glEnd();
+
 }
 
+
+void drawAirplane(float x, float y) {
+
+    glColor3f(0.92f, 0.92f, 0.92f);
+    drawEllipse(x, y, 0.1f, 0.04f, 50);
+
+
+    glBegin(GL_TRIANGLES);
+    glVertex2f(x + 0.098f, y-0.015);
+    glVertex2f(x + 0.135f, y-0.005);
+    glVertex2f(x + 0.095f, y + 0.015f);
+    glEnd();
+
+    glColor3f(0.85f, 0.85f, 0.88f);
+    glBegin(GL_POLYGON);
+    glVertex2f(x-0.03,        y-0.01);
+    glVertex2f(x + 0.011f, y-0.01);
+    glVertex2f(x + 0.001f, y - 0.074f);
+    glVertex2f(x - 0.04f, y - 0.074f);
+    glEnd();
+
+    // Tail wing
+    glBegin(GL_POLYGON);
+    glVertex2f(x - 0.095f, y + 0.027f);
+    glVertex2f(x - 0.065f, y + 0.027f);
+    glVertex2f(x - 0.065f, y + 0.060f);
+    glVertex2f(x - 0.095f, y + 0.060f);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glVertex2f(x - 0.084f, y);
+    glVertex2f(x - 0.053f, y);
+    glVertex2f(x - 0.062f, y + 0.067f);
+    glVertex2f(x - 0.084f, y + 0.060f);
+    glEnd();
+
+//    // Engine
+//    glColor3f(0.50f, 0.50f, 0.55f);
+//    drawFilledCircle(x + 0.011f, y - 0.050f, 0.013f, 40);
+//
+    // Window strip
+    glColor3f(0.55f, 0.82f, 0.97f);
+    for (int i = 0; i < 5; i++)
+        drawFilledCircle(x - 0.011f + i * 0.022f, y + 0.007f, 0.010f, 30);
+}
 
 
 void display() {
@@ -585,30 +582,28 @@ void display() {
     glLoadIdentity();
 
 
-  // 1. Sun
+
     drawSun();
 
-  // 2. Clouds
+
     drawCloud(-0.75f, 0.82f, 0.055f);
     drawCloud(-0.35f, 0.65f, 0.055f);
     drawCloud(0.70f,0.85f, 0.055f);
 
-  // 3. City Buildings
+
     drawCityBuildings();
 
-  // 4. Grass
+
     drawGrass();
 
-  // 5. Path
+
     drawPath();
 
-  // 6. Pond
     drawPond();
 
-  // 7. Bridge
     drawBridge();
 
-  // 8. Pine trees (background)
+
     drawPineTree(-0.55f, 0.03f);
     drawPineTree( -0.10f, -0.02f);
     drawPineTree( 0.02f, 0.02f);
@@ -618,30 +613,24 @@ void display() {
     drawPineTree( 0.70f,0.0f);
     glPopMatrix();
 
-  // 9. Round trees
+
     drawRoundTree(-0.85f, -0.35f);
 
-//
-//    // 11. Fountain
+
 //    drawFountain();
 //
-//    // 12. Benches
+//    // 11. Benches
 //    drawBench(-0.15f, -0.42f, 0.10f); // left of fountain
 //    drawBench( 0.35f, -0.42f, 0.10f); // right of fountain
 //    drawBench(-0.52f, -0.72f, 0.09f); // near pond
 //
-//    // 13. Lamp posts
-//    drawLampPost(-0.32f, -0.25f, 0.28f);
-//    drawLampPost( 0.62f, -0.28f, 0.28f);
-//
-    // 14. Swing set
-    drawSwingSet();
 
-    // 15. Slide
-    drawSlide();
-//
-//    // 16. Airplane (animated)
-//    drawAirplane(planeX, 0.55f);
+    glTranslatef(0,-0.2f,0);
+    drawSwingSet();
+    glLoadIdentity();
+
+
+    drawAirplane(0.05f, 0.633f);
 
     glFlush();
 }
@@ -649,12 +638,11 @@ void display() {
 
 int main(int argc, char** argv) {
     glutInit(&argc, argv);
-    glutInitWindowSize(1000, 800);
+    glutInitWindowSize(900, 600);
     glutInitWindowPosition(80, 50);
     glutCreateWindow("Park Scenario");
     init();
     glutDisplayFunc(display);
-//    glutTimerFunc(30, update, 0);
     glutMainLoop();
 
 }
